@@ -18,16 +18,21 @@ function Linha(props) {
 }
 
 function calcular(valor){
-
+  return eval(valor)
 }
 
 function Calculadora() {
-  const [valor, setValor] = useState(0)
-  const [resultado, setResultado] = useState()
+  const [valor, setValor] = useState("0")
 
   const handleAdd = (e) => {
-    if(valor == 0){
-      setValor(e.target.innerText)
+    if(valor == "0"){
+      if(e.target.innerText == "."){
+        setValor( valor + e.target.innerText)
+      } else if(valor == "0."){
+        setValor( valor + e.target.innerText)
+      } else {
+        setValor(e.target.innerText)
+      }
     } else {
       setValor( valor + e.target.innerText)
     }
@@ -39,10 +44,9 @@ function Calculadora() {
       setValor(0)
     } else if (action == "="){
       setValor(calcular(valor))
-    } else if(action == "ANS"){
-      setValor(resultado)
     } else if(action == "+/-"){
       //fazer trocar o sinal
+      //resultado = (resultado * -1)
     }
   }
 
@@ -77,8 +81,7 @@ function Calculadora() {
       </Linha>
       <Linha>
         <Botao value="0" onClick={handleAdd}></Botao>
-        <Botao value="," onClick={handleAdd}></Botao>
-        <Botao value="ANS" onClick={handleChange}></Botao>
+        <Botao value="." onClick={handleAdd}></Botao>
         <Botao value="=" onClick={handleChange}></Botao>
       </Linha>
     </div>
